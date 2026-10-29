@@ -1,0 +1,1675 @@
+/* ==========================================================================
+   PANTAU – Petrusian Aksi Nyata Tolak perUndungan
+   Stylesheet
+
+   Daftar isi:
+   1. Variabel warna (tema terang & gelap)
+   2. Reset & gaya dasar
+   3. Layar pembuka (loading)
+   4. Teks berjalan (marquee)
+   5. Header & navigasi
+   6. Tombol
+   7. Halaman (view) & Hero
+   8. Kartu 4MP
+   9. Strip & grafik
+  10. Judul & teks pengantar
+  11. Accordion (details/summary)
+  12. Tabel, catatan, dan chips
+  13. Kuis
+  14. Tab, langkah lapor, footer
+  15. Aksesibilitas (kurangi animasi)
+  16. Kuis: header & tipe soal
+  17. Animasi semua section (reveal, badge, progres, dekorasi)
+  18. Micro-interaction & sentuhan akhir (semua section)
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. VARIABEL WARNA
+   ========================================================================== */
+
+/* Tema terang (bawaan) */
+:root {
+  color-scheme: light;
+
+  --bg:      #FFF6DC;  /* latar halaman */
+  --hero:    #FFE3A0;  /* latar hero & loading */
+  --surface: #FFFFFF;  /* latar kartu */
+  --ink:     #2F2A1F;  /* warna teks utama */
+  --muted:   #6B6350;  /* warna teks redup */
+  --line:    #2F2A1F;  /* warna garis tepi */
+
+  --green:   #2E7D32;
+  --orange:  #F07F2D;
+  --red:     #C8102E;
+  --red-ink: #C8102E;  /* teks merah: sama terang, lebih terang di tema gelap */
+
+  /* Warna turunan (kontras aman di atas latar terang & gelap) */
+  --green-deep: #17501A;  /* hijau tua: bar teks berjalan, garis panel */
+  --orange-deep:#B3541E;  /* oranye pekat: subjudul hero, judul accordion terbuka */
+  --panel:      #E9F6E4;  /* panel hijau sangat muda di halaman Home */
+  --cy:         #8F6E00;  /* judul kartu kuning */
+  --co:         #A34B00;  /* judul kartu oranye */
+
+  --gbg:     #CFEAC6;  /* latar hijau muda */
+  --ybg:     #FFF3B0;  /* latar kuning muda */
+  --obg:     #FFC99A;  /* latar oranye muda */
+  --rbg:     #F6A5A5;  /* latar merah muda */
+
+  /* Ruang aman pada layar berponi (HP) */
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Tema gelap otomatis mengikuti pengaturan perangkat */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --bg:      #1F1B12;
+    --hero:    #3A3016;
+    --surface: #2B2618;
+    --ink:     #FFF3D6;
+    --muted:   #CFC4A3;
+    --line:    #FFF3D6;
+
+    --green:   #7FD184;
+
+    --green-deep: #3C7A41;
+    --orange-deep:#F2A25C;
+    --red-ink:    #FF6B76;
+    --panel:      #1E3423;
+    --cy:         #E0B93A;
+    --co:         #F0A26B;
+
+    --gbg:     #25402A;
+    --ybg:     #4A4218;
+    --obg:     #5A3B1E;
+    --rbg:     #5A2527;
+  }
+}
+
+/* Tema gelap manual (data-theme="dark") */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg:      #1F1B12;
+  --hero:    #3A3016;
+  --surface: #2B2618;
+  --ink:     #FFF3D6;
+  --muted:   #CFC4A3;
+  --line:    #FFF3D6;
+
+  --green:   #7FD184;
+
+  --green-deep: #3C7A41;
+  --orange-deep:#F2A25C;
+  --red-ink:    #FF6B76;
+  --panel:      #1E3423;
+  --cy:         #E0B93A;
+  --co:         #F0A26B;
+
+  --gbg:     #25402A;
+  --ybg:     #4A4218;
+  --obg:     #5A3B1E;
+  --rbg:     #5A2527;
+}
+
+
+/* ==========================================================================
+   2. RESET & GAYA DASAR
+   ========================================================================== */
+
+html {
+  height: 100%;
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 600 1.05rem/1.65 'Nunito', system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+button,
+.btn {
+  font-family: 'Fredoka', 'Nunito', sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 8px;
+  line-height: 1.1;
+}
+
+/* Pembungkus konten agar rata tengah */
+.wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 18px;
+}
+
+/* Cincin fokus untuk pengguna keyboard */
+button:focus-visible,
+summary:focus-visible,
+a:focus-visible {
+  outline: 4px solid #7A5CFF;
+  outline-offset: 2px;
+}
+
+
+/* ==========================================================================
+   3. LAYAR PEMBUKA (LOADING)
+   ========================================================================== */
+
+#load {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  background: var(--hero);
+  transition: opacity .5s;
+}
+
+#load h1 {
+  font-size: 4rem;
+  color: var(--green);
+  letter-spacing: .04em;
+}
+
+/* Bilah progres */
+#load i {
+  display: block;
+  width: 200px;
+  height: 8px;
+  margin: 16px auto 0;
+  background: var(--surface);
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+#load i:after {
+  content: "";
+  display: block;
+  height: 100%;
+  background: var(--orange);
+  animation: ld 1.4s forwards;
+}
+
+@keyframes ld {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+
+/* ==========================================================================
+   4. TEKS BERJALAN (MARQUEE)
+   ========================================================================== */
+
+.marq {
+  background: var(--green-deep);
+  color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: .92rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 7px 0;
+}
+
+.marq span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: mq 28s linear infinite;
+}
+
+@keyframes mq {
+  to { transform: translateX(-100%); }
+}
+
+
+/* ==========================================================================
+   5. HEADER & NAVIGASI
+   ========================================================================== */
+
+header.bar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+  background: var(--surface);
+  border-bottom: 3px solid var(--line);
+}
+
+header.bar .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.logo {
+  margin-right: auto;
+  font: 700 1.6rem 'Fredoka';
+  color: var(--green);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+nav button {
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color .2s ease, color .2s ease, transform .2s ease;
+}
+
+nav button:hover {
+  background: rgb(240 127 45 / 16%);
+}
+
+nav button:active {
+  transform: scale(.96);
+}
+
+/* Menu yang sedang aktif */
+nav button[aria-current="true"] {
+  background: var(--orange);
+  color: #fff;
+}
+
+
+/* ==========================================================================
+   6. TOMBOL
+   ========================================================================== */
+
+.btn {
+  display: inline-block;
+  border: 0;
+  background: var(--orange);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 9px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, .28);
+}
+
+.btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .28);
+}
+
+/* Varian warna tombol */
+.btn.g     { background: var(--green); color: #fff; }  /* hijau */
+.btn.r     { background: var(--red); }                 /* merah */
+.btn.y     { background: #B58A00; }                    /* kuning tua */
+.btn.brown { background: #8A6D3B; }                    /* cokelat */
+
+/* Tema gelap memakai hijau muda (--green #7FD184); teks putih di atasnya
+   hanya ±1,7:1. Teks hijau-gelap menaikkan kontras ke ±8:1. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .btn.g {
+    color: #12230F;
+  }
+}
+
+:root[data-theme="dark"] .btn.g {
+  color: #12230F;
+}
+
+
+/* ==========================================================================
+   7. HALAMAN (VIEW) & HERO
+   ========================================================================== */
+
+/* Hanya satu halaman yang tampil (class "on" diatur oleh JavaScript) */
+.view {
+  display: none;
+  padding: 30px 0 50px;
+}
+
+.view.on {
+  display: block;
+  animation: view-enter .35s ease both;
+}
+
+@keyframes view-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+  background: var(--hero);
+  border-radius: 32px;
+  padding: 30px;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 12vw, 5rem);
+  color: var(--green);
+  letter-spacing: .02em;
+}
+
+/* Subjudul hero: oranye pekat agar kontras tetap aman di latar krem */
+.hero h3 {
+  margin-bottom: 14px;
+  color: var(--orange-deep);
+  font-size: clamp(1.05rem, 3.4vw, 1.3rem);
+  letter-spacing: .01em;
+}
+
+.hero p {
+  max-width: 46ch;
+}
+
+/* Ilustrasi dua siswa */
+.shield {
+  width: min(300px, 100%);
+  max-width: 100%;
+  margin-left: auto;
+  font-size: 6rem;
+  animation: bob 3s ease-in-out infinite;
+}
+
+@keyframes bob {
+  50% { transform: translateY(-8px); }
+}
+
+/* Panel hijau muda di bawah hero (mengikuti mockup): berisi Tujuan,
+   pengenalan 4MP, kartu, dan strip merah. Garis hijau tua di atasnya
+   menjadi pemisah antara hero dan panel. */
+.panel {
+  margin-top: 16px;
+  padding: 26px 22px 22px;
+  background: var(--panel);
+  border-top: 10px solid var(--green-deep);
+  border-radius: 22px;
+}
+
+.panel + .chart {
+  margin-top: 22px;
+}
+
+
+/* ==========================================================================
+   8. KARTU 4MP
+   ========================================================================== */
+
+.four {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.c {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  border: 3px solid var(--line);
+  border-radius: 22px;
+  color: var(--ink);
+}
+
+.c h3 {
+  font-size: 1.5rem;
+}
+
+.c p {
+  flex: 1;
+  margin: 0;
+}
+
+/* Warna kartu: g = hijau, y = kuning, o = oranye, r = merah */
+.c.g { background: var(--gbg); }
+.c.y { background: var(--ybg); }
+.c.o { background: var(--obg); }
+.c.r { background: var(--rbg); }
+
+.c.g h3 { color: var(--green); }
+.c.y h3 { color: var(--cy); }
+.c.o h3 { color: var(--co); }
+.c.r h3 { color: var(--red-ink); }
+
+/* Kartu 4MP di Home: ikon ilustrasi besar sebagai airmark di belakang teks,
+   judul rata tengah, dan tombol pill kecil di kiri (seperti mockup) */
+.four .c {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.four .c::before {
+  content: "🔍";
+  position: absolute;
+  z-index: -1;
+  top: -16px;
+  right: -14px;
+  font-size: 5rem;
+  line-height: 1;
+  opacity: .22;
+  pointer-events: none;
+  transform: rotate(-12deg);
+}
+
+.four .c.y::before { content: "🛡️"; }
+.four .c.o::before { content: "💬"; }
+.four .c.r::before { content: "📣"; }
+
+.four .c h3 {
+  text-align: center;
+}
+
+.four .btn {
+  align-self: flex-start;
+}
+
+/* Dua kolom kartu (halaman Lapor) */
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+
+/* ==========================================================================
+   9. STRIP & GRAFIK
+   ========================================================================== */
+
+.strip {
+  margin: 24px 0;
+  padding: 8px;
+  background: var(--red);
+  color: #fff;
+  text-align: center;
+  font: 700 1.6rem 'Fredoka';
+  letter-spacing: .3em;
+  border-radius: 12px;
+}
+
+.chart {
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 20px;
+}
+
+.chart .lead {
+  margin: 0;
+}
+
+/* Batang grafik */
+.bars {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  height: 190px;
+  margin-top: 10px;
+}
+
+.bars div {
+  flex: 1;
+  min-height: 26px;
+  padding-top: 4px;
+  background: var(--orange);
+  color: #fff;
+  text-align: center;
+  font: 600 .95rem 'Fredoka';
+  border-radius: 10px 10px 0 0;
+}
+
+.bars div:last-child {
+  background: var(--red);
+}
+
+/* Label tahun di bawah grafik */
+.lbl {
+  display: flex;
+  gap: 12px;
+  text-align: center;
+}
+
+.lbl span {
+  flex: 1;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+
+/* ==========================================================================
+  10. JUDUL & TEKS PENGANTAR
+   ========================================================================== */
+
+h2.t {
+  font-size: clamp(1.9rem, 6vw, 2.6rem);
+  color: var(--green);
+}
+
+/* Judul bagian di halaman Home (rata tengah) */
+h2.t.center {
+  margin-top: 34px;
+  text-align: center;
+}
+
+.lead {
+  color: var(--muted);
+  max-width: 60ch;
+}
+
+.lead.center {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Sub-judul di dalam halaman */
+.sub-title {
+  margin-top: 28px;
+}
+
+/* Judul Tujuan di Home: merah + rata tengah (arah mockup Canva) */
+.sub-title.tuj {
+  margin-top: 0;
+  text-align: center;
+  color: var(--red-ink);
+  font-size: clamp(1.5rem, 5vw, 1.9rem);
+}
+
+/* Daftar tujuan: tiap butir punya ikon bulat di kiri */
+.tuj-list {
+  max-width: none;
+  margin: 14px 0 4px;
+  padding: 0;
+  list-style: none;
+}
+
+.tuj-list li {
+  position: relative;
+  margin: 0 0 16px;
+  padding: 2px 4px 2px 60px;
+  color: var(--ink);
+}
+
+.tuj-list li::before {
+  content: "💡";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  display: grid;
+  place-content: center;
+  width: 46px;
+  height: 46px;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  font-size: 1.35rem;
+  transform: translateY(-50%);
+}
+
+.tuj-list li:nth-child(2)::before { content: "🦁"; }
+.tuj-list li:nth-child(3)::before { content: "🏫"; }
+
+
+/* ==========================================================================
+  11. ACCORDION (DETAILS / SUMMARY)
+   ========================================================================== */
+
+details {
+  margin: 12px 0;
+  padding: 4px 18px;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 20px;
+}
+
+summary {
+  padding: 12px 0;
+  font: 600 1.25rem 'Fredoka';
+  cursor: pointer;
+}
+
+details[open] summary {
+  color: var(--orange-deep);
+}
+
+details p,
+details ul {
+  margin: 0 0 14px;
+}
+
+
+/* ==========================================================================
+  12. TABEL, CATATAN, DAN CHIPS
+   ========================================================================== */
+
+/* Tabel bisa digeser ke samping di layar kecil */
+.tbl {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px 10px;
+  border: 2px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+th                { background: var(--ybg); }
+td:nth-child(2)   { background: var(--rbg); }  /* kolom Perundungan */
+td:nth-child(3)   { background: var(--gbg); }  /* kolom Bercanda sehat */
+
+.note {
+  margin: 14px 0;
+  padding: 12px 16px;
+  background: var(--ybg);
+  border-left: 8px solid var(--orange);
+  border-radius: 12px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chips span {
+  padding: 4px 14px;
+  background: var(--gbg);
+  border-radius: 999px;
+}
+
+.chips + p {
+  margin-top: 12px;
+}
+
+
+/* ==========================================================================
+  13. KUIS
+   ========================================================================== */
+
+.quiz {
+  margin: 22px 0;
+  padding: 22px;
+  background: var(--surface);
+  border: 3px solid var(--line);
+  border-radius: 26px;
+}
+
+/* Pilihan jawaban */
+.opt {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px 16px;
+  background: var(--bg);
+  color: var(--ink);
+  text-align: left;
+  font: 600 1rem 'Nunito';
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.opt.ok { background: var(--gbg); border-color: var(--green); }  /* jawaban benar */
+.opt.no { background: var(--rbg); border-color: var(--red); }    /* jawaban salah */
+
+/* Teks umpan balik */
+.fb {
+  min-height: 1.6em;
+  font-weight: 800;
+}
+
+.score-popup {
+  width: min(90vw, 440px);
+  max-width: none;
+  padding: 0;
+  overflow: visible;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+}
+
+.score-popup::backdrop {
+  background: rgb(20 18 12 / 58%);
+  animation: popup-fade-in .25s ease-out both;
+}
+
+.score-popup__content {
+  position: relative;
+  padding: 30px 24px 24px;
+  overflow: hidden;
+  text-align: center;
+  background: var(--surface);
+  border: 3px solid var(--green);
+  border-radius: 28px;
+  box-shadow: 0 18px 50px rgb(0 0 0 / 25%);
+  animation: popup-enter .45s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.score-popup__sparkle {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 2.8rem;
+  animation: sparkle-bounce .8s ease-in-out infinite alternate;
+}
+
+.score-popup__eyebrow {
+  margin: 0 0 6px;
+  color: var(--green);
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.score-popup__content h2 {
+  color: var(--red);
+  font-size: 2rem;
+}
+
+.score-popup__score {
+  margin: 12px 0 4px;
+  font: 700 1.35rem 'Fredoka', 'Nunito', sans-serif;
+}
+
+.score-popup__content > p:not(.score-popup__eyebrow):not(.score-popup__score) {
+  margin: 6px 0 18px;
+}
+
+.score-popup__confetti {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 8px;
+  height: 13px;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.score-popup.is-celebrating .score-popup__confetti {
+  animation: confetti-burst .9s ease-out both;
+  box-shadow:
+    -120px 70px 0 var(--orange),
+    -82px 18px 0 var(--green),
+    -42px 80px 0 #7A5CFF,
+    0 12px 0 var(--red),
+    44px 70px 0 var(--orange),
+    84px 20px 0 var(--green),
+    120px 78px 0 #7A5CFF;
+}
+
+@keyframes popup-enter {
+  from { opacity: 0; transform: translateY(18px) scale(.88); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes popup-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes sparkle-bounce {
+  from { transform: scale(.9) rotate(-8deg); }
+  to   { transform: scale(1.08) rotate(8deg); }
+}
+
+@keyframes confetti-burst {
+  0%   { opacity: 0; transform: translate(-50%, 20px) rotate(0); }
+  20%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -42px) rotate(180deg); }
+}
+
+
+/* ==========================================================================
+  14. TAB, LANGKAH LAPOR, FOOTER
+   ========================================================================== */
+
+/* Tab "murid / guru" */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.tabs button {
+  flex: 1;
+}
+
+/* Daftar langkah bernomor */
+.steps {
+  counter-reset: s;
+  list-style: none;
+  padding: 0;
+}
+
+.steps li {
+  counter-increment: s;
+  position: relative;
+  margin: 10px 0;
+  padding: 12px 16px 12px 58px;
+  background: var(--surface);
+  border-radius: 18px;
+}
+
+.steps li:before {
+  content: counter(s);
+  position: absolute;
+  left: 14px;
+  top: 10px;
+  display: grid;
+  place-content: center;
+  width: 34px;
+  height: 34px;
+  background: var(--orange);
+  color: #fff;
+  font: 700 1.1rem 'Fredoka';
+  border-radius: 50%;
+}
+
+footer {
+  padding: 24px 18px 36px;
+  background: var(--gbg);
+  border-top: 6px solid var(--green-deep);
+  text-align: center;
+}
+
+footer b {
+  color: var(--red-ink);
+  font: 700 1.3rem 'Fredoka';
+}
+
+
+/* ==========================================================================
+  15. AKSESIBILITAS – KURANGI ANIMASI
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .marq span {
+    padding-left: 0;
+  }
+}
+
+/* ==========================================================================
+   16. KUIS: HEADER DAN TIPE SOAL
+   ========================================================================== */
+
+.btn.small {
+  font-size: .88rem;
+  padding: 6px 14px;
+}
+
+/* Indikator progres di kartu Home */
+.quiz-progress {
+  margin: 6px 0 12px;
+  color: var(--muted);
+  font-size: .9rem;
+  font-weight: 800;
+}
+
+.quiz-progress:not(:empty) {
+  color: var(--green);
+}
+
+/* Kepala kuis */
+.qz-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-bottom: 10px;
+}
+
+.qz-title {
+  margin-right: auto;
+  color: var(--green);
+  font: 700 1.05rem 'Fredoka', sans-serif;
+}
+
+.qz-count,
+.qz-score {
+  padding: 3px 12px;
+  background: var(--bg);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  font-size: .88rem;
+  font-weight: 800;
+}
+
+.qz-bar {
+  height: 10px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  background: var(--bg);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+}
+
+.qz-bar span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--green);
+  transition: width .3s ease;
+}
+
+.qz-story {
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  background: var(--ybg);
+  border-left: 5px solid var(--orange);
+  border-radius: 12px;
+}
+
+.qz-q {
+  margin: 0 0 14px;
+  font-size: 1.12rem;
+  line-height: 1.45;
+}
+
+.qz-q:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 4px;
+}
+
+.qz-hint {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.qz-resume {
+  border-left: 5px solid var(--green);
+}
+
+.qz-answer {
+  margin: 6px 0 0;
+  color: var(--red);
+  font-size: .95rem;
+  font-weight: 700;
+}
+
+.qz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+/* Pilihan yang sedang dicentang pada soal "pilih 3" */
+.opt.picked {
+  background: var(--obg);
+  border-color: var(--orange);
+  box-shadow: inset 0 0 0 2px var(--orange);
+}
+
+.opt:disabled {
+  cursor: default;
+  opacity: .95;
+}
+
+/* Soal mengurutkan */
+.qz-sort {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.qz-sort__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 3px solid var(--line);
+  border-radius: 16px;
+}
+
+.qz-sort__num {
+  display: grid;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  font: 700 .9rem 'Fredoka', sans-serif;
+}
+
+.qz-sort__txt {
+  flex: 1 1 auto;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.qz-sort__move {
+  display: flex;
+  gap: 6px;
+}
+
+.qz-sort__btn {
+  width: 34px;
+  height: 34px;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.qz-sort__btn:disabled {
+  cursor: default;
+  opacity: .35;
+}
+
+/* Soal menjodohkan */
+.qz-match {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 3px solid var(--line);
+  border-radius: 16px;
+}
+
+.qz-match__left {
+  font-weight: 800;
+}
+
+.qz-match__select {
+  width: 100%;
+  padding: 9px 12px;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  font: 600 .95rem 'Nunito', sans-serif;
+}
+
+.qz-match.ok {
+  background: var(--gbg);
+  border-color: var(--green);
+}
+
+.qz-match.no {
+  background: var(--rbg);
+  border-color: var(--red);
+}
+
+.qz-match .qz-answer {
+  display: block;
+}
+
+@media (min-width: 620px) {
+  .qz-match {
+    grid-template-columns: minmax(160px, 42%) 1fr;
+    align-items: center;
+  }
+
+  .qz-match .qz-answer {
+    grid-column: 1 / -1;
+  }
+}
+/* Atribut hidden harus menang atas display milik komponen */
+[hidden] {
+  display: none !important;
+}
+
+/* Layar sempit: logo di atas, navigasi di bawahnya */
+@media (max-width: 620px) {
+  header.bar .wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  header.bar .wrap > .logo {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  header.bar .wrap > nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-left: 0;
+  }
+
+  /* Kartu urutan: teks dapat lebar penuh, tombol pindah di baris bawah */
+  .qz-sort__item {
+    flex-wrap: wrap;
+  }
+
+  .qz-sort__txt {
+    flex: 1 1 calc(100% - 46px);
+  }
+
+  .qz-sort__move {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* ==========================================================================
+   17. ANIMASI SEMUA SECTION (reveal, badge, progres, dekorasi)
+   Aturan reveal (.anim/.rv) hanya aktif bila JS memberi class .anim pada
+   .view. Tanpa JS / prefers-reduced-motion / tanpa IntersectionObserver:
+   konten tampil normal sejak awal tanpa animasi.
+   Isi: dekorasi blob, kepala section (badge penghitung + progres membaca),
+   reveal bertahap, lencana nomor accordion, grafik yang tumbuh, dan
+   perpindahan tab yang halus.
+   ========================================================================== */
+
+/* Dekorasi: dua blob gradient halus supaya section tak sepi.
+   Warna per halaman lewat variabel --blob-a / --blob-b.
+   overflow-x: clip mencegah blob memicu scroll horizontal;
+   overflow-clip-margin memberi ruang untuk cincin badge dan
+   cincin fokus keyboard agar tidak terpotong tepi section. */
+.view {
+  position: relative;
+  overflow-x: clip;
+  overflow-clip-margin: 14px;
+  counter-reset: sec;         /* nomor lencana tiap accordion per halaman */
+  --blob-a: 240 127 45;       /* oranye */
+  --blob-b: 46 125 50;        /* hijau */
+}
+
+/* Pasangan warna blob tiap halaman */
+#mencegah  { --blob-a: 46 125 50;   --blob-b: 240 127 45; }  /* hijau → oranye */
+#menyikapi { --blob-a: 240 127 45;  --blob-b: 194 40 40;  }  /* oranye → merah */
+#lapor     { --blob-a: 194 40 40;   --blob-b: 240 127 45;  }  /* merah → oranye */
+
+.view::before,
+.view::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.view::before {
+  top: -60px;
+  right: -40px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle,
+    rgb(var(--blob-a) / 28%) 0%,
+    rgb(var(--blob-a) / 0%) 70%);
+}
+
+.view::after {
+  top: 320px;
+  left: -60px;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle,
+    rgb(var(--blob-b) / 24%) 0%,
+    rgb(var(--blob-b) / 0%) 70%);
+}
+
+/* Home: blob kedua dipindah ke bawah supaya menemani grafik */
+#home::after {
+  top: auto;
+  bottom: -60px;
+}
+
+/* Kepala section: badge angka di kiri, judul + progres di kanan.
+   padding-left memberi ruang cincin putus-putus badge supaya tidak
+   terpotong overflow clip di tepi section. */
+.sec-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: center;
+  padding-left: 14px;
+}
+
+.sec-body {
+  flex: 1 1 300px;
+  min-width: 0;
+}
+
+/* Badge bundar berisi jumlah bagian, dikelilingi cincin putus-putus */
+.sec-badge {
+  position: relative;
+  flex: 0 0 auto;
+  display: grid;
+  place-content: center;
+  width: 112px;
+  height: 112px;
+  text-align: center;
+  background: var(--surface);
+  border: 3px solid var(--line);
+  border-radius: 50%;
+  box-shadow: 0 12px 26px rgb(0 0 0 / 12%);
+}
+
+.sec-badge::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border: 3px dashed var(--orange-deep);
+  border-radius: 50%;
+  animation: sec-spin 16s linear infinite;
+}
+
+@keyframes sec-spin {
+  to { transform: rotate(360deg); }
+}
+
+.sec-num {
+  display: block;
+  font: 700 2.7rem/1 'Fredoka', sans-serif;
+  color: var(--green);
+}
+
+.sec-cap {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: .74rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+/* Progres membaca "X dari N bagian terbuka" (ditampilkan oleh JS) */
+.sec-prog {
+  margin-top: 12px;
+}
+
+.sec-prog-text {
+  color: var(--green);
+  font-size: .93rem;
+  font-weight: 800;
+}
+
+.sec-prog-bar {
+  height: 12px;
+  margin-top: 6px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+}
+
+.sec-prog-bar i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), var(--orange-deep));
+  transition: width .5s cubic-bezier(.2, .8, .2, 1);
+}
+
+/* Semua bagian terbuka: teks progres sedikit menyala */
+.sec-prog.lengkap .sec-prog-text {
+  color: var(--orange-deep);
+}
+
+/* Blok bertanda .rv: disembunyikan dulu, tampil bertahap saat .in datang.
+   Memakai properti `translate` (bukan transform) agar micro-interaction
+   yang memakai transform di details / kuis / kartu tidak saling menimpa. */
+.view.anim .rv {
+  opacity: 0;
+  translate: 0 18px;
+}
+
+.view.anim .rv.in {
+  animation: sec-in .55s cubic-bezier(.2, .8, .2, 1) var(--d, 0ms) forwards;
+}
+
+@keyframes sec-in {
+  from { opacity: 0; translate: 0 18px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+/* Sapuan garis di bawah judul setelah judul masuk.
+   width: fit-content agar sapuan selebar teks; varian .center ikut
+   ditengahkan dengan margin-inline: auto (display:block penuh tidak
+   bisa dipakai untuk sapuan). */
+.view.anim h2.t {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.view.anim h2.t.center {
+  margin-inline: auto;
+}
+
+.view.anim h2.t::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 7px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--orange), var(--red));
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.view.anim h2.t.in::after {
+  animation: sec-sweep .7s cubic-bezier(.2, .8, .2, 1) .15s forwards;
+}
+
+@keyframes sec-sweep {
+  to { transform: scaleX(1); }
+}
+
+/* Tab murid & guru di-reset terpisah supaya nomor tiap tab mulai dari 1
+   (elemen display:none tidak menghitung counter). */
+#murid,
+#guru {
+  counter-reset: sec;
+}
+
+/* Nomor urut di kiri tiap summary + panah di kanan yang berputar saat buka */
+.view details {
+  counter-increment: sec;
+  transition: transform .22s ease,
+    box-shadow .22s ease,
+    border-color .22s ease,
+    background-color .22s ease;
+}
+
+/* Micro-interaction: angkat saat disorot, tekan saat diklik */
+@media (hover: hover) and (pointer: fine) {
+  .view details:hover {
+    transform: translateY(-3px);
+    border-color: var(--orange-deep);
+    box-shadow: 0 12px 24px rgb(0 0 0 / 12%);
+  }
+}
+
+.view details:active {
+  transform: translateY(-1px) scale(.995);
+}
+
+.view details[open] {
+  border-color: var(--orange-deep);
+}
+
+.view summary {
+  position: relative;
+  padding: 12px 42px 12px 48px;
+  list-style: none;
+  transition: color .25s ease;
+}
+
+.view summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Lencana nomor bundar di kiri */
+.view summary::before {
+  content: counter(sec);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  display: grid;
+  place-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--green);
+  color: var(--bg);
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  font: 700 .98rem 'Fredoka', sans-serif;
+  transform: translateY(-50%);
+  transition: background-color .25s ease, color .25s ease, transform .25s ease;
+}
+
+.view details[open] summary::before {
+  background: var(--orange-deep);
+  /* var(--bg), bukan #fff: di tema gelap oranye pekat jadi terang,
+     jadi teks gelap yang aman kontras. */
+  color: var(--bg);
+  transform: translateY(-50%) scale(1.08);
+}
+
+/* Panah di kanan */
+.view summary::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-right: 3px solid currentColor;
+  border-bottom: 3px solid currentColor;
+  transform: translateY(-75%) rotate(-45deg);
+  transition: transform .3s ease;
+}
+
+.view details[open] summary::after {
+  transform: translateY(-30%) rotate(45deg);
+}
+
+/* Accordion buka/tutup mulus (browser yang mendukung; selain itu tetap native) */
+@supports selector(::details-content) {
+  .view details {
+    interpolate-size: allow-keywords;
+  }
+
+  .view details::details-content {
+    height: 0;
+    overflow: clip;
+    transition: height .35s ease, content-visibility .35s allow-discrete;
+  }
+
+  .view details[open]::details-content {
+    height: auto;
+  }
+}
+
+/* Isi accordion masuk bertahap saat dibuka */
+.view.anim details[open] > :not(summary) {
+  animation: sec-in .45s cubic-bezier(.2, .8, .2, 1) backwards;
+}
+
+.view.anim details[open] > :not(summary):nth-child(2) { animation-delay: .05s; }
+.view.anim details[open] > :not(summary):nth-child(3) { animation-delay: .12s; }
+.view.anim details[open] > :not(summary):nth-child(4) { animation-delay: .19s; }
+.view.anim details[open] > :not(summary):nth-child(5) { animation-delay: .26s; }
+
+/* Baris tabel & daftar butir masuk bergelombang */
+.view.anim details[open] .tbl tr,
+.view.anim details[open] ul li {
+  animation: sec-in .4s ease backwards;
+}
+
+.view.anim details[open] .tbl tr:nth-child(1),
+.view.anim details[open] ul li:nth-child(1) { animation-delay: .15s; }
+.view.anim details[open] .tbl tr:nth-child(2),
+.view.anim details[open] ul li:nth-child(2) { animation-delay: .22s; }
+.view.anim details[open] .tbl tr:nth-child(3),
+.view.anim details[open] ul li:nth-child(3) { animation-delay: .29s; }
+.view.anim details[open] .tbl tr:nth-child(4),
+.view.anim details[open] ul li:nth-child(4) { animation-delay: .36s; }
+.view.anim details[open] .tbl tr:nth-child(5),
+.view.anim details[open] ul li:nth-child(5) { animation-delay: .43s; }
+
+/* Chips peran pop satu per satu */
+.view.anim details[open] .chips span {
+  animation: sec-pop .45s cubic-bezier(.2, .9, .3, 1.45) backwards;
+}
+
+.view.anim details[open] .chips span:nth-child(1) { animation-delay: .10s; }
+.view.anim details[open] .chips span:nth-child(2) { animation-delay: .16s; }
+.view.anim details[open] .chips span:nth-child(3) { animation-delay: .22s; }
+.view.anim details[open] .chips span:nth-child(4) { animation-delay: .28s; }
+.view.anim details[open] .chips span:nth-child(5) { animation-delay: .34s; }
+.view.anim details[open] .chips span:nth-child(6) { animation-delay: .40s; }
+
+@keyframes sec-pop {
+  from { opacity: 0; transform: scale(.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Grafik tumbuh dari dasar saat judul grafik masuk layar.
+   Tinggi batang tetap diatur JavaScript (persentase), animasi hanya
+   skala sumbu-Y dari 0. */
+.view.anim .chart .bars div {
+  transform-origin: bottom;
+}
+
+.view.anim .chart.in .bars div {
+  animation: sec-tumbuh .7s cubic-bezier(.2, .8, .2, 1) backwards;
+}
+
+.view.anim .chart.in .bars div:nth-child(2) { animation-delay: .08s; }
+.view.anim .chart.in .bars div:nth-child(3) { animation-delay: .16s; }
+.view.anim .chart.in .bars div:nth-child(4) { animation-delay: .24s; }
+.view.anim .chart.in .bars div:nth-child(5) { animation-delay: .32s; }
+
+@keyframes sec-tumbuh {
+  from { transform: scaleY(0); }
+}
+
+/* Ganti tab murid/guru dengan halus (murni CSS — handler tab tetap) */
+.view.anim #murid:not([hidden]),
+.view.anim #guru:not([hidden]) {
+  animation: sec-in .4s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+
+/* ==========================================================================
+   18. MICRO-INTERACTION & SENTUAN AKHIR (semua section)
+   ========================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+  /* Chips peran: sedikit terangkat saat disorot */
+  .view .chips span {
+    border: 2px solid transparent;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+
+  .view .chips span:hover {
+    border-color: var(--line);
+    box-shadow: 0 6px 14px rgb(0 0 0 / 14%);
+    transform: translateY(-3px) rotate(-1.5deg);
+  }
+
+  /* Tabel: baris yang disorot sedikit lebih terang */
+  .view .tbl tr {
+    transition: filter .2s ease;
+  }
+
+  .view .tbl tbody tr:hover {
+    filter: brightness(1.05) saturate(1.1);
+  }
+
+  /* Kuis: kotak terangkat tipis supaya terasa "siap dimainkan" */
+  .view .quiz {
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+
+  .view .quiz:hover {
+    box-shadow: 0 16px 32px rgb(0 0 0 / 12%);
+    transform: translateY(-3px);
+  }
+
+  /* Judul summary terangkat tipis saat disorot */
+  .view summary {
+    transition: color .25s ease, transform .2s ease;
+  }
+
+  .view summary:hover {
+    color: var(--orange-deep);
+    transform: translateX(3px);
+  }
+
+  /* Kartu 4MP & kartu lapor: terangkat saat disorot */
+  .view .four .c,
+  .view .split .c {
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+
+  .view .four .c:hover,
+  .view .split .c:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgb(0 0 0 / 14%);
+  }
+
+  /* Daftar langkah lapor: sedikit menonjol saat disorot */
+  .view .steps li {
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+
+  .view .steps li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgb(0 0 0 / 12%);
+  }
+
+  /* Tab murid/guru: terangkat saat disorot, tertekan saat ditekan.
+     :active sengaja dideklarasikan SETELAH :hover supaya menang saat
+     tombol ditekan (spesifikasi sama, urutan menentukan). */
+  .view .tabs .btn {
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+
+  .view .tabs .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .view .tabs .btn:active {
+    transform: translateY(2px);
+  }
+}

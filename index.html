@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+   <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PANTAU – Petrusian Aksi Nyata Tolak perUndungan</title>
+
+  <!-- Font Google: Fredoka (judul) & Nunito (teks) -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet" referrerpolicy="no-referrer">
+
+  <!-- Gaya tampilan -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Ikon kosong: mencegah permintaan /favicon.ico 404 di console -->
+  <link rel="icon" href="data:,">
+
+  <!-- Cadangan tanpa JavaScript: layar pembuka & navigasi butuh JS, jadi
+       lewati loader dan tampilkan halaman Home apa adanya (tanpa animasi). -->
+  <noscript><style>#load{display:none}#home{display:block}</style></noscript>
+</head>
+
+<body>
+
+  <!-- =====================================================================
+       LAYAR PEMBUKA (hilang otomatis setelah ±1,5 detik)
+       ===================================================================== -->
+  <div id="load">
+    <h1>PANTAU</h1>
+    <div>Memuat…</div>
+    <i></i>
+  </div>
+
+
+  <!-- =====================================================================
+       TEKS BERJALAN
+       ===================================================================== -->
+  <div class="marq">
+    <span>
+      Bersama Ciptakan Sekolah yang Aman dan Nyaman &nbsp;•&nbsp;
+      Mengenal, Mencegah, Menyikapi, Melaporkan &nbsp;•&nbsp;
+      Berani Peduli, Berani Melapor &nbsp;•&nbsp;
+      Bersama Ciptakan Sekolah yang Aman dan Nyaman
+    </span>
+  </div>
+
+
+  <!-- =====================================================================
+       HEADER & MENU NAVIGASI
+       ===================================================================== -->
+  <header class="bar">
+    <div class="wrap">
+      <div class="logo">PANTAU</div>
+
+      <nav id="nav" aria-label="Menu utama">
+        <button data-go="home">Home</button>
+        <button data-go="mengenal">Mengenal</button>
+        <button data-go="mencegah">Mencegah</button>
+        <button data-go="menyikapi">Menyikapi</button>
+        <button data-go="lapor">Lapor</button>
+        <button data-scroll="contact">Contact</button>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- =====================================================================
+       KONTEN UTAMA
+       Setiap <section class="view"> adalah satu halaman.
+       ===================================================================== -->
+  <main class="wrap">
+
+    <p class="note" id="storage-note" hidden>
+      Browser ini gak bisa nyimpan progres (mungkin mode privat). Kuis tetap bisa dikerjakan,
+      tapi progres hilang kalau halaman ditutup.
+    </p>
+
+    <!-- =================================================================
+         HALAMAN: HOME
+         ================================================================= -->
+    <section class="view" id="home"
+             data-reveal=".hero, .sub-title.tuj, .tuj-list, h2.t.center, .lead.center, .four .c, .strip, .chart">
+
+      <!-- Hero -->
+      <div class="hero">
+        <div>
+          <h1>PANTAU</h1>
+          <h3>Petrusian Aksi Nyata Tolak perUndungan</h3>
+          <p>
+            PANTAU adalah aplikasi berbasis website yang mengedukasi tentang perundungan,
+            supaya siswa/i SMP Katolik Santu Petrus bisa menerapkan 4MP dalam kehidupan sehari-hari.
+          </p>
+          <button class="btn" data-go="mengenal">Pelajari Selengkapnya</button>
+        </div>
+
+        <!-- Ilustrasi: dua siswa menolak perundungan -->
+        <svg class="shield" viewBox="0 0 240 170" role="img"
+             aria-label="Dua siswa menolak perundungan dengan tanda Stop Bully">
+
+          <!-- Siswa kiri -->
+          <rect x="14" y="112" width="72" height="58" rx="20" fill="#F7D84A"/>
+          <circle cx="50" cy="72" r="36" fill="#F4C7A0"/>
+          <path d="M14 68a36 36 0 0 1 72 0c-14-4-40-14-46-30-6 14-16 26-26 30z" fill="#4A2B1B"/>
+          <path d="M36 76q6 5 12 0M54 76q6 5 12 0M42 92q8-6 16 0"
+                stroke="#4A2B1B" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+          <!-- Siswa kanan -->
+          <rect x="154" y="112" width="72" height="58" rx="20" fill="#E8453C"/>
+          <circle cx="190" cy="72" r="36" fill="#F4C7A0"/>
+          <path d="M154 70a36 36 0 0 1 72 0c-10-8-20-14-36-14s-26 6-36 14z" fill="#4A2B1B"/>
+          <path d="M176 76q6 5 12 0M194 76q6 5 12 0M182 92q8-6 16 0"
+                stroke="#4A2B1B" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+          <!-- Tangan -->
+          <rect x="88"  y="58" width="26" height="76" rx="13" fill="#F8D9B8"/>
+          <rect x="126" y="58" width="26" height="76" rx="13" fill="#F8D9B8"/>
+
+          <!-- Tanda "Stop Bully" -->
+          <circle cx="120" cy="96" r="31" fill="#fff" stroke="#2E7D32" stroke-width="6"/>
+          <text x="120" y="95"  text-anchor="middle" font-family="Fredoka,sans-serif"
+                font-weight="700" font-size="16" fill="#C8102E">Stop</text>
+          <text x="120" y="113" text-anchor="middle" font-family="Fredoka,sans-serif"
+                font-weight="700" font-size="16" fill="#C8102E">Bully</text>
+        </svg>
+      </div>
+
+      <!-- Panel hijau muda: Tujuan + pengenalan 4MP + strip (mengikuti mockup) -->
+      <div class="panel">
+
+      <!-- Tujuan -->
+      <h3 class="sub-title tuj">Tujuan PANTAU</h3>
+      <ul class="lead tuj-list">
+        <li>Membentuk pemahaman Petrusian tentang perundungan, dengan nilai kepedulian, keberanian, dan tanggung jawab.</li>
+        <li>Menumbuhkan keberanian untuk mencegah, menyikapi, dan melaporkan perundungan.</li>
+        <li>Mendorong lingkungan sekolah yang aman dan nyaman.</li>
+      </ul>
+
+      <!-- Pengenalan 4MP -->
+      <h2 class="t center">Ketahui 4MP</h2>
+      <p class="lead center">
+        4MP singkatan dari Mengenal, Mencegah, Menyikapi, dan Melaporkan Perundungan,
+        untuk mencegah dan mengatasi perundungan di lingkungan sekolah.
+      </p>
+
+      <!-- Empat kartu 4MP -->
+      <div class="four">
+        <div class="c g">
+          <h3>Mengenal</h3>
+          <p>Yuk! Pahami arti, bentuk, dan dampak perundungan di sekitar kita.</p>
+          <p class="quiz-progress" data-progress="mengenal">Belum mulai</p>
+          <button class="btn g" data-go="mengenal">Pelajari</button>
+        </div>
+
+        <div class="c y">
+          <h3>Mencegah</h3>
+          <p>Temukan tindakan sederhana untuk mencegah perundungan di sekolah.</p>
+          <button class="btn y" data-go="mencegah">Pelajari</button>
+        </div>
+
+        <div class="c o">
+          <h3>Menyikapi</h3>
+          <p>Pelajari cara bersikap dan membantu dengan tepat saat mengalami atau menyaksikan perundungan.</p>
+          <p class="quiz-progress" data-progress="menyikapi">Belum mulai</p>
+          <button class="btn" data-go="menyikapi">Pelajari</button>
+        </div>
+
+        <div class="c r">
+          <h3>Melaporkan</h3>
+          <p>Kenali langkah melapor dan mendapat bantuan dari orang yang dipercaya.</p>
+          <button class="btn r" data-go="lapor">Pelajari</button>
+        </div>
+      </div>
+
+      <div class="strip">PERUNDUNGAN</div>
+
+      </div><!-- /.panel -->
+
+      <!-- Grafik data kasus (tinggi batang = persentase dari nilai tertinggi, 573) -->
+      <div class="chart">
+        <h3>Kasus kekerasan di lingkungan pendidikan Indonesia</h3>
+        <div class="lead">
+          Data JPPI per tahun. Grafik kasus di sekolah kita akan menyusul lewat Google Form.
+        </div>
+
+        <div class="bars" id="jpji-bars" role="img" aria-label="Grafik kasus kekerasan per tahun"></div>
+        <div class="lbl" id="jpji-years" aria-hidden="true"></div>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         HALAMAN: MENGENAL
+         ================================================================= -->
+    <section class="view" id="mengenal"
+             data-reveal="h2.t, .lead, details, .quiz, .sec-badge, .sec-prog">
+
+      <!-- Kepala section: badge penghitung + progres membaca.
+           Bar progres sengaja hidden di HTML — hanya ditampilkan oleh JS,
+           jadi tanpa JS pengunjung tetap melihat konten tanpa bar basi. -->
+      <div class="sec-head">
+        <div class="sec-badge" aria-hidden="true">
+          <span class="sec-num" data-count="5">5</span>
+          <span class="sec-cap">bagian</span>
+        </div>
+
+        <div class="sec-body">
+          <h2 class="t">Mengenal Perundungan</h2>
+          <p class="lead">Buka tiap bagian untuk membaca. Setelah itu, uji pemahamanmu di kuis.</p>
+
+          <div class="sec-prog" hidden>
+            <span class="sec-prog-text">1 dari 5 bagian terbuka</span>
+            <div class="sec-prog-bar"><i></i></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Apa itu perundungan -->
+      <details open>
+        <summary>Apa itu perundungan?</summary>
+        <p>
+          Perundungan (bullying) adalah perilaku yang dilakukan <b>sengaja dan berulang</b>
+          oleh seseorang untuk menyakiti, merendahkan, menindas, atau mendominasi orang lain
+          yang dianggap lebih lemah.
+        </p>
+        <p>
+          Menurut UNICEF Indonesia, ada tiga ciri: dilakukan dengan sengaja untuk menyakiti,
+          terjadi berulang, dan ada ketimpangan kekuatan. Kekuatan tidak selalu fisik,
+          bisa juga berupa popularitas, jumlah teman, status, atau uang.
+        </p>
+      </details>
+
+      <!-- Perundungan atau bercanda -->
+      <details>
+        <summary>Perundungan atau bercanda?</summary>
+        <div class="tbl">
+          <table>
+            <tr>
+              <th>Aspek</th>
+              <th>Perundungan</th>
+              <th>Bercanda yang sehat</th>
+            </tr>
+            <tr>
+              <td>Tujuan</td>
+              <td>Menyakiti atau merendahkan</td>
+              <td>Menyenangkan tanpa menyakiti</td>
+            </tr>
+            <tr>
+              <td>Perasaan</td>
+              <td>Korban sakit hati, malu, tidak nyaman</td>
+              <td>Semua sama-sama senang</td>
+            </tr>
+            <tr>
+              <td>Kekuatan</td>
+              <td>Ada perbedaan kekuatan atau status</td>
+              <td>Setara dan nyaman</td>
+            </tr>
+            <tr>
+              <td>Frekuensi</td>
+              <td>Berulang, terus meski diminta berhenti</td>
+              <td>Sesekali, berhenti bila diminta</td>
+            </tr>
+          </table>
+        </div>
+      </details>
+
+      <!-- Jenis-jenis perundungan -->
+      <details>
+        <summary>Jenis-jenis perundungan</summary>
+        <ul>
+          <li><b>Fisik:</b> memukul, menendang, mendorong, merusak barang.</li>
+          <li><b>Verbal:</b> mengejek penampilan, julukan menyakitkan, mengancam.</li>
+          <li><b>Relasional (sosial):</b> mengucilkan, menyebar rumor, mempermalukan di depan kelompok.</li>
+          <li><b>Siber:</b> pesan menghina, menyebar foto atau video untuk mempermalukan, stiker pengejek.</li>
+        </ul>
+      </details>
+
+      <!-- Dampak perundungan -->
+      <details>
+        <summary>Dampak perundungan</summary>
+        <ul>
+          <li><b>Psikologis:</b> sedih, malu, takut, cemas, sulit tidur, kehilangan percaya diri.</li>
+          <li><b>Fisik:</b> memar dan cedera, sakit kepala, sakit perut.</li>
+          <li><b>Belajar:</b> sulit konsentrasi, kehilangan semangat sekolah.</li>
+        </ul>
+        <div class="note">
+          Perundungan <b>bukan kesalahan orang yang mengalaminya</b>.
+          Jangan hadapi sendirian: ceritakan kepada orang tua atau guru.
+          <button class="btn r" data-go="lapor">Ke menu Lapor</button>
+        </div>
+      </details>
+
+      <!-- Peran dalam perundungan -->
+      <details>
+        <summary>Peran dalam perundungan</summary>
+        <div class="chips">
+          <span>Korban</span>
+          <span>Pelaku</span>
+          <span>Saksi</span>
+          <span>Pendukung</span>
+          <span>Pembela korban</span>
+          <span>Guru &amp; orang tua</span>
+        </div>
+        <p>
+          Perundungan tidak hanya melibatkan korban dan pelaku. <b>Saksi</b> bisa mencari bantuan guru.
+          <b>Pembela korban</b> menolak ikut mengejek dan menemani korban melapor.
+          Menjadi pembela adalah peran yang bijak.
+        </p>
+      </details>
+
+      <!-- Kuis (diisi oleh JavaScript) -->
+      <div class="quiz" id="q1"></div>
+
+      <!-- Pertanyaan komitmen (muncul setelah kuis selesai) -->
+      <div class="quiz" id="gate" hidden>
+        <h3>Setelah memahami perundungan, apakah kamu bersedia mencegahnya di sekolah?</h3>
+        <button class="btn g" id="yes1">Ya, bersedia</button>
+        <button class="btn brown" id="no1">Belum</button>
+        <p class="fb" id="gfb"></p>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         HALAMAN: MENCEGAH
+         ================================================================= -->
+    <section class="view" id="mencegah"
+             data-reveal="h2.t, .tabs, details, .quiz, .sec-badge, .sec-prog">
+
+      <!-- Kepala section: badge penghitung + progres tab aktif -->
+      <div class="sec-head">
+        <div class="sec-badge" aria-hidden="true">
+          <span class="sec-num" data-count="4">4</span>
+          <span class="sec-cap">langkah</span>
+        </div>
+
+        <div class="sec-body">
+          <h2 class="t">Mencegah Perundungan</h2>
+
+          <div class="sec-prog" hidden>
+            <span class="sec-prog-text">1 dari 4 bagian terbuka</span>
+            <div class="sec-prog-bar"><i></i></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tombol tab -->
+      <div class="tabs">
+        <button class="btn g" data-tab="murid">Peranmu sebagai murid</button>
+        <button class="btn"   data-tab="guru">Peran guru</button>
+      </div>
+
+      <!-- Tab: Murid -->
+      <div id="murid">
+        <details open>
+          <summary>Evaluasi diri sebelum bertindak</summary>
+          <p>Pikirkan dampak kata dan tindakanmu. Yang kamu anggap candaan belum tentu menyenangkan bagi orang lain.</p>
+        </details>
+
+        <details>
+          <summary>Sadar dan hargai perbedaan</summary>
+          <p>Sebagai Petrusian berkarakter Pancasila, kita menghormati keberagaman suku, agama, ras, dan karakter setiap orang.</p>
+        </details>
+
+        <details>
+          <summary>Berani menolak perundungan</summary>
+          <p>
+            Jangan ikut menertawakan teman yang dihina, menyebar pesan yang mempermalukan, atau mengucilkan.
+            Sapa dengan ramah dan tanyakan kabarnya dengan tulus.
+          </p>
+          <div class="note">
+            Efesus 4:32 – hendaklah kamu ramah seorang terhadap yang lain, penuh kasih mesra dan saling mengampuni.
+          </div>
+        </details>
+
+        <details>
+          <summary>Peduli, berani membantu, dan melapor</summary>
+          <p>
+            Melihat perundungan bukan urusan orang lain. Kamu tidak harus menghadapi pelaku sendirian.
+            Melapor bukan mengadu, tetapi mencari pertolongan agar semua aman.
+          </p>
+        </details>
+      </div>
+
+      <!-- Tab: Guru (tersembunyi di awal) -->
+      <div id="guru" hidden>
+        <details open>
+          <summary>Buat kesepakatan kelas</summary>
+          <p>Susun bersama siswa: tidak mengejek, tidak mengucilkan, lengkap dengan konsekuensi yang mendidik, bukan sekadar hukuman.</p>
+        </details>
+
+        <details>
+          <summary>Beri teladan yang baik</summary>
+          <p>Berkomunikasi sopan dan biasakan 3 kata: Tolong, Maaf, Terima Kasih. Hindari menegur dengan mempermalukan di depan umum.</p>
+        </details>
+
+        <details>
+          <summary>Lingkungan belajar yang menyeluruh</summary>
+          <p>Integrasikan kecerdasan emosional dan toleransi ke setiap pelajaran. Acak kelompok kerja secara berkala agar tidak terbentuk lingkaran tertutup.</p>
+        </details>
+
+        <details>
+          <summary>Peduli pada siswa yang rentan</summary>
+          <p>Siswa pindahan, pendiam, bertubuh kecil, atau penyandang disabilitas perlu diperhatikan. Sapa dan tanyakan kabarnya.</p>
+        </details>
+      </div>
+
+      <!-- Pertanyaan refleksi -->
+      <div class="quiz">
+        <h3>Sudahkah kamu menerapkan langkah pencegahan?</h3>
+        <button class="btn g" id="yes2">Sudah</button>
+        <button class="btn brown" id="no2">Belum</button>
+        <p class="fb" id="fb2"></p>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         HALAMAN: MENYIKAPI
+         ================================================================= -->
+    <section class="view" id="menyikapi"
+             data-reveal="h2.t, details, .quiz, .sec-badge, .sec-prog">
+
+      <!-- Kepala section: badge penghitung + progres membaca -->
+      <div class="sec-head">
+        <div class="sec-badge" aria-hidden="true">
+          <span class="sec-num" data-count="4">4</span>
+          <span class="sec-cap">situasi</span>
+        </div>
+
+        <div class="sec-body">
+          <h2 class="t">Menyikapi Perundungan</h2>
+
+          <div class="sec-prog" hidden>
+            <span class="sec-prog-text">1 dari 4 bagian terbuka</span>
+            <div class="sec-prog-bar"><i></i></div>
+          </div>
+        </div>
+      </div>
+
+      <details open>
+        <summary>Jika kamu mengalaminya</summary>
+        <ul>
+          <li><b>Utamakan keselamatan:</b> menjauh ke tempat aman dan cari guru.</li>
+          <li><b>Ceritakan dan laporkan</b> kepada orang tua, wali kelas, atau guru yang kamu percaya.</li>
+          <li><b>Luangkan waktu untukmu:</b> membaca, menggambar, berolahraga, atau bersama keluarga.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Jika kamu menyaksikannya</summary>
+        <ul>
+          <li>Jangan ikut menertawakan atau menyebar konten yang mempermalukan.</li>
+          <li>Lindungi korban, lalu temani dan dengarkan ceritanya saat situasi aman.</li>
+          <li>Minta bantuan guru. Kamu tidak perlu menunggu sampai ada luka fisik.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Jika kamu pernah melakukannya</summary>
+        <ul>
+          <li>Dengarkan tanpa langsung membela diri.</li>
+          <li>Minta maaf dengan tulus.</li>
+          <li>Hentikan perilakunya, termasuk di media sosial.</li>
+          <li>Minta bimbingan guru atau orang tua.</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>Peran guru sebagai mediator</summary>
+        <p>Dengarkan laporan dengan serius, dampingi korban, bimbing pelaku dan pendukungnya, dan libatkan orang tua bila perlu.</p>
+      </details>
+
+      <!-- Kuis (diisi oleh JavaScript) -->
+      <div class="quiz" id="q2"></div>
+    </section>
+
+
+    <!-- =================================================================
+         HALAMAN: LAPOR
+         ================================================================= -->
+    <section class="view" id="lapor"
+             data-reveal="h2.t, .lead, .sec-badge, .split .c, .sub-title, .steps li, a.btn">
+
+      <!-- Kepala section: badge penghitung jumlah langkah lapor -->
+      <div class="sec-head">
+        <div class="sec-badge" aria-hidden="true">
+          <span class="sec-num" data-count="5">5</span>
+          <span class="sec-cap">langkah</span>
+        </div>
+
+        <div class="sec-body">
+          <h2 class="t">Melaporkan Perundungan</h2>
+          <p class="lead">Menemukan perundungan di sekolah? Bantu korban jika aman, atau segera lapor.</p>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="c y">
+          <h3>Lapor langsung ke guru</h3>
+          <p>Jika tidak ada guru di kelas, segera cari guru di kelas lain atau di kantor guru.</p>
+        </div>
+
+        <div class="c r">
+          <h3>Butuh bantuan segera?</h3>
+          <p>
+            Jika kamu atau temanmu merasa sangat tertekan, bicaralah dengan orang dewasa yang dipercaya.
+            Layanan SAPA 129 dari KemenPPPA juga menerima laporan kekerasan pada anak.
+          </p>
+        </div>
+      </div>
+
+      <h3 class="sub-title">Cara lapor online</h3>
+      <ol class="steps">
+        <li>Cari tempat aman untuk menyiapkan bukti.</li>
+        <li>Dokumentasikan bukti: foto, video, atau rekaman suara.</li>
+        <li>Buka <a href="https://www.smppetrus.sch.id/" target="_blank" rel="noopener noreferrer">smppetrus.sch.id</a>.</li>
+        <li>Klik tombol “Laporkan”.</li>
+        <li>Isi formulir lapor bullying lalu kirim.</li>
+      </ol>
+
+      <a class="btn r" href="https://www.smppetrus.sch.id/" target="_blank" rel="noopener noreferrer">Buka form lapor</a>
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================================
+       FOOTER
+       ===================================================================== -->
+  <footer id="contact">
+    <b>CONTACT PERSON &amp; COPYRIGHT</b><br>
+    PANTAU · SMP Katolik Santu Petrus<br>
+    <small>Sumber: UNICEF Indonesia (2020), JPPI (2025), Widaningsih dkk. (2024).</small>
+  </footer>
+
+  <dialog class="score-popup" id="score-popup" aria-labelledby="score-popup-title" aria-describedby="score-popup-message">
+    <div class="score-popup__content">
+      <span class="score-popup__sparkle" aria-hidden="true">✨</span>
+      <p class="score-popup__eyebrow">HASIL KUIS</p>
+      <h2 id="score-popup-title">Selamat!</h2>
+      <p class="score-popup__score" id="score-popup-score"></p>
+      <p id="score-popup-message"></p>
+      <button class="btn g" id="score-popup-close" type="button">Tutup</button>
+      <span class="score-popup__confetti" aria-hidden="true"></span>
+    </div>
+  </dialog>
+
+
+  <!-- =====================================================================
+       JAVASCRIPT
+       ===================================================================== -->
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

@@ -399,17 +399,40 @@ nav button[aria-current="true"] {
   max-width: 46ch;
 }
 
-/* Ilustrasi dua siswa */
-.shield {
-  width: min(300px, 100%);
-  max-width: 100%;
+/* Logo hero */
+.hero-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 340px;
+  min-height: 300px;
   margin-left: auto;
-  font-size: 6rem;
-  animation: bob 3s ease-in-out infinite;
 }
 
-@keyframes bob {
+.shield {
+  display: block;
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  will-change: transform;
+  animation: logo-bob 3s ease-in-out infinite;
+}
+
+@keyframes logo-bob {
+  0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shield { animation: none; }
+}
+
+@media (max-width: 760px) {
+  .hero-logo {
+    flex-basis: 280px;
+    min-height: 250px;
+    margin-inline: auto;
+  }
 }
 
 /* Panel hijau muda di bawah hero (mengikuti mockup): berisi Tujuan,

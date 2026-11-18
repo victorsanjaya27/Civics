@@ -276,6 +276,10 @@ nav {
   gap: 6px;
 }
 
+.nav-toggle {
+  display: none;
+}
+
 nav button {
   border: 0;
   background: transparent;
@@ -522,7 +526,8 @@ nav button[aria-current="true"] {
 }
 
 .four .btn {
-  align-self: flex-start;
+  align-self: center;
+  text-align: center;
 }
 
 /* Dua kolom kartu (halaman Lapor) */
@@ -643,30 +648,25 @@ h2.t.center {
 }
 
 .tuj-list li {
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 3vw, 20px);
   margin: 0 0 16px;
-  padding: 2px 4px 2px 60px;
+  padding: 2px 4px;
   color: var(--ink);
 }
 
-.tuj-list li::before {
-  content: "💡";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  display: grid;
-  place-content: center;
-  width: 46px;
-  height: 46px;
+.tuj-icon {
+  display: block;
+  flex: 0 0 clamp(44px, 9vw, 60px);
+  width: clamp(44px, 9vw, 60px);
+  height: clamp(44px, 9vw, 60px);
   background: var(--surface);
   border: 2px solid var(--line);
   border-radius: 50%;
-  font-size: 1.35rem;
-  transform: translateY(-50%);
+  padding: 5px;
+  object-fit: contain;
 }
-
-.tuj-list li:nth-child(2)::before { content: "🦁"; }
-.tuj-list li:nth-child(3)::before { content: "🏫"; }
 
 
 /* ==========================================================================
@@ -980,6 +980,10 @@ footer b {
   font-weight: 800;
 }
 
+.quiz-progress:empty {
+  display: none;
+}
+
 .quiz-progress:not(:empty) {
   color: var(--green);
 }
@@ -1194,11 +1198,12 @@ footer b {
   display: none !important;
 }
 
-/* Layar sempit: logo di atas, navigasi di bawahnya */
+/* Layar sempit: navigasi dibuka melalui tombol hamburger */
 @media (max-width: 620px) {
   header.bar .wrap {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto;
+    align-items: center;
   }
 
   header.bar .wrap > .logo {
@@ -1206,10 +1211,48 @@ footer b {
     grid-row: 1;
   }
 
+  .nav-toggle {
+    display: flex;
+    grid-column: 2;
+    grid-row: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    border: 2px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+    cursor: pointer;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--ink);
+  }
+
   header.bar .wrap > nav {
+    display: none;
     grid-column: 1 / -1;
     grid-row: 2;
     margin-left: 0;
+  }
+
+  header.bar .wrap > nav.is-open {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 8px;
+  }
+
+  header.bar .wrap > nav button {
+    width: 100%;
+    padding: 10px 14px;
+    text-align: left;
   }
 
   /* Kartu urutan: teks dapat lebar penuh, tombol pindah di baris bawah */

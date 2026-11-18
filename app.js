@@ -118,9 +118,32 @@
      --------------------------------------------------------------- */
 
   var views = ['home', 'mengenal', 'mencegah', 'menyikapi', 'lapor'];
+  var nav = $('nav');
+  var navToggle = document.querySelector('.nav-toggle');
+
+  function setNavOpen(open) {
+    if (!nav || !navToggle) return;
+    nav.classList.toggle('is-open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+  }
+
+  if (navToggle) {
+    navToggle.addEventListener('click', function () {
+      setNavOpen(navToggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') {
+        setNavOpen(false);
+        navToggle.focus();
+      }
+    });
+  }
 
   function go(viewId) {
     if (views.indexOf(viewId) < 0) viewId = 'home';
+    setNavOpen(false);
 
     views.forEach(function (id) {
       $(id).classList.toggle('on', id === viewId);
@@ -263,13 +286,13 @@
 
     if (session && !session.done) {
       var answered = answeredCount(session);
-      return answered ? 'Progres ' + answered + '/' + session.ids.length : 'Belum mulai';
+      return answered ? 'Progres ' + answered + '/' + session.ids.length : '';
     }
     if (session && session.done) {
       return 'Selesai • skor ' + session.score + '/' + session.ids.length;
     }
     if (best) return 'Terakhir • skor ' + best.score + '/' + best.total;
-    return 'Belum mulai';
+    return '';
   }
 
   function updateProgressBadges() {
